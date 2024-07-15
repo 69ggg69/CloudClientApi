@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "4f4OwKtSFfl8SLUbPYmGv3zHsRvO11Lvc8XQ0gVeI3PlD6SIxfMYDDZu4YWK6TFcpu/+MM8IHPVXYjDoOJQEsg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\y.zhulina\\source\\repos\\BrightPatternApi\\CloudContactApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\y.zhulina\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
