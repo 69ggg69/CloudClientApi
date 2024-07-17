@@ -1,49 +1,58 @@
-﻿using CloudContactApi.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CloudContactApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class RecordingsController : ControllerBase
+    [Route("[controller]")]
+    public class CloudContactController : ControllerBase
     {
-        private readonly IRecordingsService _recordingsService;
-        private readonly IMetadataService _metadataService;
+        private readonly CloudContactApiService _cloudContactApiService;
 
-        public RecordingsController(IRecordingsService recordingsService, IMetadataService metadataService)
+        public CloudContactController(CloudContactApiService cloudContactApiService)
         {
-            _recordingsService = recordingsService;
-            _metadataService = metadataService;
+            _cloudContactApiService = cloudContactApiService;
         }
 
         [HttpGet("audio")]
-        public async Task<IActionResult> GetAudioFile(string giid, string stepid)
+        public async Task<IActionResult> GetAudioFileAsync(string giid, string stepId)
         {
             try
             {
-                var audioFile = await _recordingsService.GetAudioFileAsync(giid, stepid);
+                var audioFile = await _cloudContactApiService.GetAudioFileAsync(giid, stepId);
                 return Ok(audioFile);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet("metadata")]
-        public async Task<IActionResult> GetMetadata(string giid, string stepid)
+        public async Task<IActionResult> GetMetadataAsync(string giid, string stepId)
         {
             try
             {
-                var metadata = await _metadataService.GetMetadataAsync(giid, stepid);
+                var metadata = await _cloudContactApiService.GetMetadataAsync(giid, stepId);
                 return Ok(metadata);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, ex.Message);
             }
         }
-       
+
+        [HttpGet("sendrequest")]
+        public async Task<IActionResult> SendRequestAsync(string relativeUrl, string giid, string stepId)
+        {
+            try
+            {
+                var result = await _cloudContactApiService.SendRequestAsync(relativeUrl, giid, stepId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

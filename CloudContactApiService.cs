@@ -2,7 +2,7 @@
 
 namespace CloudContactApi
 {
-    public class CloudContactApi
+    public class CloudContactApiService
     {
         public HttpClient HttpClient { get; }
         public string TenantUrl { get; }
@@ -11,7 +11,7 @@ namespace CloudContactApi
         private readonly string _scope;
         private readonly string _grantType;
 
-        public CloudContactApi(HttpClient httpClient, string tenantUrl, string clientId, string clientSecret, string scope, string grantType)
+        public CloudContactApiService(HttpClient httpClient, string tenantUrl, string clientId, string clientSecret, string scope, string grantType)
         {
             HttpClient = httpClient;
             TenantUrl = tenantUrl;
@@ -92,11 +92,11 @@ namespace CloudContactApi
 
     public static class CloudContactApiExtensions
     {
-        public static async Task<string> SendRequestAsync(this CloudContactApi api, string giid, string stepId, string endpoint)
+        public static async Task<string> SendRequestAsync(this CloudContactApiService api, string relativeUrl, string giid, string stepId)
         {
             var token = await api.GetAccessTokenAsync();
 
-            var requestUrl = $"{api.TenantUrl}/{endpoint}?giid={giid}&stepid={stepId}";
+            var requestUrl = $"{api.TenantUrl}/{relativeUrl}?giid={giid}&stepid={stepId}";
             var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
             request.Headers.Add("Authorization", $"Bearer {token}");
 
