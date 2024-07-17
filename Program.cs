@@ -1,23 +1,24 @@
 using CloudContactApi.Interfaces;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Configuration.AddJsonFile("appsettings.json");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Cool API", Version = "v1" });
+}); 
+builder.Services.AddHttpClient();
 
 var apiSettings = builder.Configuration.GetSection("ApiSettings");
-
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    client.BaseAddress = new Uri(apiSettings["TenantUrl"]);
-});
 
 builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>(sp =>
 {
     var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient("ApiClient"); // Используем именованный HttpClient
+    var httpClient = httpClientFactory.CreateClient();
     var tenantUrl = apiSettings["TenantUrl"];
     var clientId = apiSettings["ClientId"];
     var clientSecret = apiSettings["ClientSecret"];
@@ -29,7 +30,7 @@ builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>(sp 
 builder.Services.AddSingleton<IRecordingsService, RecordingsService>(sp =>
 {
     var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient("ApiClient"); // Используем именованный HttpClient
+    var httpClient = httpClientFactory.CreateClient();
     var tenantUrl = apiSettings["TenantUrl"];
     var authService = sp.GetRequiredService<IAuthenticationService>();
     return new RecordingsService(httpClient, tenantUrl, authService);
@@ -38,7 +39,7 @@ builder.Services.AddSingleton<IRecordingsService, RecordingsService>(sp =>
 builder.Services.AddSingleton<IMetadataService, MetadataService>(sp =>
 {
     var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient("ApiClient"); // Используем именованный HttpClient
+    var httpClient = httpClientFactory.CreateClient();
     var tenantUrl = apiSettings["TenantUrl"];
     var authService = sp.GetRequiredService<IAuthenticationService>();
     return new MetadataService(httpClient, tenantUrl, authService);
