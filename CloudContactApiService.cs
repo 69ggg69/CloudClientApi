@@ -92,7 +92,7 @@ namespace CloudContactApi
 
     public static class CloudContactApiExtensions
     {
-        public static async Task<string> SendRequestAsync(this CloudContactApiService api, string relativeUrl, string giid, string stepId)
+        internal static async Task<string> SendRequestAsync(this CloudContactApiService api, string relativeUrl, string giid, string stepId)
         {
             var token = await api.GetAccessTokenAsync();
 
